@@ -1,4 +1,4 @@
-class naive_matrix():
+class NaiveMatrix():
     def __init__(self, a):
         self.a = a
         self.rows = len(a)
@@ -10,8 +10,6 @@ class naive_matrix():
 
         return [[0 for col in range(b_cols)]for row in range(self.rows)]
 
-
-
     def __mul__(self, b):
 
         a_rows = self.rows
@@ -19,7 +17,6 @@ class naive_matrix():
 
         b_rows = b.rows
         b_cols = b.cols
-
 
         if self.cols == b.rows:
             rslt = self.make_empty_result_matrix(b)
@@ -29,12 +26,7 @@ class naive_matrix():
                     for k in range(0, b_rows):
                         rslt[i][j] += self.a[i][k] * b.a[k][j]
 
-            print("Multiplication of given two matrices is:")
-            for i in range(0, a_rows):
-                for j in range(0, b_cols):
-                    print(rslt[i][j], end=" ")
-                print("\n", end="")
-
+            return rslt
         else:
             raise Exception("Matrix dimensions are not compatible for multiplication.")
 

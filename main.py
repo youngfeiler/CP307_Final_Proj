@@ -1,19 +1,28 @@
-from naive_matrix import naive_matrix
+from naive_matrix import NaiveMatrix
+from sparse_matrix import SparseMatrix
+
 
 if __name__ == '__main__':
-    matrix1 = [
-        [1, 3, 5],
-        [2, 4, 6]
+    arr1 = [
+        [1, 2, 3],
+        [5, 6, 7],
+        [8, 9, 10]
     ]
 
-    matrix2 = [
-        [1, 2],
-        [3, 4],
-        [5, 6]
+    arr2 = [
+        [10, 4, 1],
+        [4, 9, 8],
+        [1, 1, 7]
     ]
 
-    mat1 = naive_matrix(matrix1)
-    mat2 = naive_matrix(matrix2)
+    mat1 = SparseMatrix(arr1)
+    mat2 = SparseMatrix(arr2)
 
-    print(mat1 * mat2)
+    mat3 = NaiveMatrix(arr1)
+    mat4 = NaiveMatrix(arr2)
+
+    #print(mat1.to_naive())
+    rslt = SparseMatrix(mat1*mat2)
+    print(rslt.to_naive())
+
 
