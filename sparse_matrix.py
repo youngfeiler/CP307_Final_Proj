@@ -12,13 +12,14 @@ class SparseMatrix(NaiveMatrix):
     def convert_to_sparse(self):
 
         sparse = []
+        if len(self.a)>0:
 
-        for row in range(self.rows):
+            for row in range(self.rows):
 
-            for col in range(self.cols):
+                for col in range(self.cols):
 
-                if self.a[row][col] != 0:
-                    sparse.append([row, col, self.a[row][col]])
+                    if self.a[row][col] != 0:
+                        sparse.append([row, col, self.a[row][col]])
 
         return sparse
 
@@ -32,27 +33,27 @@ class SparseMatrix(NaiveMatrix):
     def __mul__(self, b):
 
         count = 0
-        result = []
+        result = SparseMatrix([])
     
         # Check if the column of A is equal to the row of B
-        for a_row in self.sparse:
+        for a_el in self.sparse:
 
-            for b_row in b.sparse:
-                if a_row[1] == b_row[0]:
+            for b_el in b.sparse:
+                if a_el[1] == b_el[0]:
                     found = False
 
-                    val = a_row[2] * b_row[2]
+                    val = a_el[2] * b_el[2]
                     count +=1
                     # Check if there is already a value in our resulting matrix
-                    if len(result) > 0:
-                        for row in result:
-                            if row[0] == a_row[0] and row[1] == b_row[1]:
-                                row[2] += val
+                    if len(result.sparse) > 0:
+                        for el in result.sparse:
+                            if el[0] == a_el[0] and el[1] == b_el[1]:
+                                el[2] += val
                                 found = True
                     if found == False:
 
                     # we want to append a row of A col of B value
-                        result.append([a_row[0], b_row[1], val])
+                        result.sparse.append([a_el[0], b_el[1], val])
 
         return result,count
 
@@ -60,4 +61,7 @@ class SparseMatrix(NaiveMatrix):
         rslt = [[0 for i in range(self.cols)] for i in range(self.rows)]
         for el in self.sparse:
             rslt[el[0]][el[1]] = el[2]
-        return rslt
+        return
+
+    def to_string(self):
+        return self.sparse

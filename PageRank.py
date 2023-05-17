@@ -5,7 +5,7 @@ import os
 
 
 def page_rank(folder, links):
-    num_articles = 10
+    num_articles = 100
 
     terms_to_article_names = {}
 

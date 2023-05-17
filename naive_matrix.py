@@ -2,7 +2,10 @@ class NaiveMatrix():
     def __init__(self, a):
         self.a = a
         self.rows = len(a)
-        self.cols = len(a[0])
+        if len(a)>0:
+            self.cols = len(a[0])
+        else:
+            self.cols = 3
 
     def make_empty_result_matrix(self, b):
 
