@@ -11,6 +11,8 @@ class NaiveMatrix():
         return [[0 for col in range(b_cols)]for row in range(self.rows)]
 
     def __mul__(self, b):
+	    
+        count = 0
 
         a_rows = self.rows
         a_cols = self.cols
@@ -25,8 +27,8 @@ class NaiveMatrix():
                 for j in range(0, b_cols):
                     for k in range(0, b_rows):
                         rslt[i][j] += self.a[i][k] * b.a[k][j]
-
-            return rslt
+                        count+=1
+            return rslt,count
         else:
             raise Exception("Matrix dimensions are not compatible for multiplication.")
 
