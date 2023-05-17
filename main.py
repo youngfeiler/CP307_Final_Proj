@@ -4,15 +4,15 @@ from sparse_matrix import SparseMatrix
 
 if __name__ == '__main__':
     arr1 = [
-        [1, 2, 3],
-        [5, 6, 7],
-        [8, 9, 10]
+        [1, 0, 3],
+        [0, 6, 0],
+        [0, 0, 0]
     ]
 
     arr2 = [
-        [10, 4, 1],
-        [4, 9, 8],
-        [1, 1, 7]
+        [0, 4, 0],
+        [0, 9, 8],
+        [1, 0, 0]
     ]
 
     mat1 = SparseMatrix(arr1)
@@ -22,7 +22,16 @@ if __name__ == '__main__':
     mat4 = NaiveMatrix(arr2)
 
     #print(mat1.to_naive())
-    rslt = SparseMatrix(mat1*mat2)
+
+
+    res_mat,count_naive = mat3*mat4
+    rslt= NaiveMatrix(res_mat)
+    print(rslt)
+	
+    
+    res_mat2,count_sparse = mat1*mat2
+    rslt= SparseMatrix(res_mat2)
     print(rslt.to_naive())
 
+    print(count_naive,count_sparse)
 

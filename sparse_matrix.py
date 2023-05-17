@@ -31,7 +31,9 @@ class SparseMatrix(NaiveMatrix):
 
     def __mul__(self, b):
 
+        count = 0
         result = []
+    
         # Check if the column of A is equal to the row of B
         for a_row in self.sparse:
 
@@ -40,7 +42,7 @@ class SparseMatrix(NaiveMatrix):
                     found = False
 
                     val = a_row[2] * b_row[2]
-
+                    count +=1
                     # Check if there is already a value in our resulting matrix
                     if len(result) > 0:
                         for row in result:
@@ -52,7 +54,7 @@ class SparseMatrix(NaiveMatrix):
                     # we want to append a row of A col of B value
                         result.append([a_row[0], b_row[1], val])
 
-        return result
+        return result,count
 
     def to_naive(self):
         rslt = [[0 for i in range(self.cols)] for i in range(self.rows)]
