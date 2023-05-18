@@ -1,13 +1,17 @@
 import numpy as np
 import os
+from sparse_matrix import SparseMatrix
 
 
-def page_rank(folder, links):
+def page_rank(folder, links, n):
 
     def get_top_rows_by_nonzero_count(array, n):
         row_indices = np.arange(len(array))
+
         nonzero_counts = np.count_nonzero(array, axis=1)
+
         sorted_indices = np.argsort(nonzero_counts)[::-1] # Sort indices in descending order
+
         top_indices = sorted_indices[:n]  # Select the top n indices
 
         return array[row_indices[top_indices], :]
@@ -58,8 +62,8 @@ def page_rank(folder, links):
     for i in range(M.shape[0]):
         M[i] /= M[i].sum()
 
-    M = get_top_rows_by_nonzero_count(M, 1000)
-
+    M = get_top_rows_by_nonzero_count(M, n)
+    M = SparseMatrix(M)
     # Get the amount of articles (amount of rows and columns in our matrix)
     length = 4604
 
@@ -83,7 +87,16 @@ def page_rank(folder, links):
         v = new_v.copy()
 
         counter += 1
+    i = 0
+
+    total = 0
+    counter = 6
+    M2 = M.copy
+    while i < counter:
+        M2,count = M2*M
+        total += count
+
 
     print(f"Convergence achieved after {counter} iterations.")
 
-    return M
+    return total
