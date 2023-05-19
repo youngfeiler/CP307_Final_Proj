@@ -34,7 +34,4 @@ class NaiveMatrix():
             return rslt,count
         else:
             raise Exception("Matrix dimensions are not compatible for multiplication.")
-            
-    def copy(self):
-        return self
 
