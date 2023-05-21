@@ -2,15 +2,16 @@ from naive_matrix import NaiveMatrix
 from sparse_matrix import SparseMatrix
 
 from PageRank import PageRank
+from scipy_matrix import scipyMatrix
 import matplotlib.pyplot as plt
 
 import time
 
-def test():
+def test(n,matrixClass):
 
     start = time.time()
 
-    pagerank = PageRank("all_wiki", "links.tsv", 400)
+    pagerank = PageRank("all_wiki", "links.tsv", n)
 
     pagerank.make_initial_matrix()
 
@@ -21,10 +22,13 @@ def test():
     # pagerank.find_convergence()
     end_2 = time.time()
     # print(f'Time to find convergence: {end_2-end_1}')
-
-    M, total = pagerank.do_multiplication_6_times(SparseMatrix)
+    if matrixClass == scipyMatrix:
+        M = pagerank.do_multiplication_6_times(matrixClass)
+    else:
+        M, total = pagerank.do_multiplication_6_times(matrixClass)
+        print(f' count: {total}')
     end_3 = time.time()
-    print(f'Time to multiply 6 times: {end_3 - end_2} and count: {total}')
+    print(f'Time to multiply 6 times: {end_3 - end_2} ')
 
     print(pagerank.M)
 
@@ -33,7 +37,7 @@ def test():
 
 if __name__ == '__main__':
 
-    test()
+    test(4000,scipyMatrix)
 
 
     # arr1 = [
@@ -48,11 +52,12 @@ if __name__ == '__main__':
     #     [0, 0, 1]
     # ]
     #
-    # mat1 = SparseMatrix(arr1)
-    # mat2 = SparseMatrix(arr2)
+    # mat1 = scipyMatrix(arr1).sparse
+    # mat2 = scipyMatrix(arr2).sparse
     #
-    # res_mat2 = mat1 * mat2
-    # print(res_mat2.to_string())
+    # res_mat2 = mat1.multiply(mat2)
+    #
+    # print(res_mat2.toarray())
     # for i in range(10):
     #     print(mat2.sparse)
     #     res_mat2,count_sparse = res_mat2*mat2

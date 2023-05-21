@@ -1,5 +1,8 @@
 import numpy as np
 import os
+
+from scipy_matrix import scipyMatrix
+from scipy.sparse import csr_matrix
 from sparse_matrix import SparseMatrix
 
 
@@ -76,25 +79,44 @@ class PageRank():
 
     def do_multiplication_6_times(self, matrixClass):
 
-        M = matrixClass(self.M)
+        if matrixClass == scipyMatrix:
 
-        M2 = matrixClass(self.M)
+            M = matrixClass(self.M).sparse
 
-        i = 0
+            M2 = matrixClass(self.M).sparse
 
-        total = 0
+            i = 0
 
-        #counter = self.convergence_iterations
-        counter = 6
-        while i < counter:
+            # counter = self.convergence_iterations
+            counter = 6
+            while i < counter:
+                M2 = M2.multiply(M)
 
-            M2, count = M2 * M
+                i += 1
 
-            total += count
+            return M
 
-            i += 1
+        else:
 
-        return M, total
+            M = matrixClass(self.M)
+
+            M2 = matrixClass(self.M)
+
+            i = 0
+
+            total = 0
+
+            #counter = self.convergence_iterations
+            counter = 6
+            while i < counter:
+
+                M2, count = M2 * M
+
+                total += count
+
+                i += 1
+
+            return M, total
 
     def find_convergence(self):
         # Get the amount of articles (amount of rows and columns in our matrix)
