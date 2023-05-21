@@ -10,7 +10,7 @@ def test():
 
     start = time.time()
 
-    pagerank = PageRank("all_wiki", "links.tsv", 300)
+    pagerank = PageRank("all_wiki", "links.tsv", 400)
 
     pagerank.make_initial_matrix()
 
@@ -51,8 +51,8 @@ if __name__ == '__main__':
     # mat1 = SparseMatrix(arr1)
     # mat2 = SparseMatrix(arr2)
     #
-    # res_mat2, count_sparse = mat1 * mat2
-    #
+    # res_mat2 = mat1 * mat2
+    # print(res_mat2.to_string())
     # for i in range(10):
     #     print(mat2.sparse)
     #     res_mat2,count_sparse = res_mat2*mat2
