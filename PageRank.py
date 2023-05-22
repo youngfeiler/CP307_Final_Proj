@@ -61,6 +61,10 @@ class PageRank():
         for i in range(M.shape[0]):
             M[i] /= M[i].sum()
 
+        density = np.count_nonzero(M)/len(all_art_names)
+
+        print(f'Density: {density}')
+
         return M
 
     def get_top_rows_by_nonzero_count(self, n):
@@ -107,7 +111,9 @@ class PageRank():
             total = 0
 
             #counter = self.convergence_iterations
+
             counter = 6
+
             while i < counter:
 
                 M2, count = M2 * M
